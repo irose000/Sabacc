@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8">
+
+        <title>Kessel Sabacc</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+                text-align: center;
+            }
+
+            .game-board {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            .decks {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+
+            .deck, .discard {
+                border: 2px solid black;
+                padding: 20px;
+                width: 100px;
+                height: 150px;
+                margin: 10px;
+                text-align: center;
+            }
+
+            .deck img, .discard img {
+                width: 100%;
+                height: 100%;
+            }
+
+            .buttons {
+                display: flex;
+                justify-content: space-around;
+                margin-bottom: 20px;
+            }
+
+            .player-hand {
+                margin-top: 30px;
+            }
+
+            .card {
+                border: 1px solid #000;
+                padding: 10px;
+                margin: 10px;
+                display: inline-block;
+            }
+
+            .shift-tokens {
+                margin-top: 20px;
+            }
+
+            button {
+                padding: 10px;
+                font-size: 16px;
+            }
+
+            .stand-button {
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Kessel Sabacc</h1>
+
+        <div class="setupForm">
+            <div id="playerOptions">
+                <!-- Dropdown for Number of Players -->
+                <label for="numPlayers">Number of Players:</label>
+                <select id="numPlayers">
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+                <!-- Input for number of starting chips -->
+                <label for="numChips">Number of Starting Chips:</label>
+                <input type="number" id="numChips" value="6" min="4" max="8">
+            </div>
+
+            <div id="shiftTokenOptions">
+                <!-- Input for Number of Shift Tokens -->
+                <label for="numShiftTokens">Number of Shift Tokens:</label>
+                <input type="number" id="numShiftTokens" value="3" min="0" max="5">
+
+                <!-- Toggle between random or player-owned shift tokens -->
+                <label>
+                    <input type="radio" name="shiftFormat" value="random" checked>
+                    Random
+                </label>
+                <label>
+                    <input type="radio" name="shiftFormat" value="playerOwned">
+                    Player-Owned
+                </label>
+
+                <!-- Placeholder for dynamic dropdown sets -->
+                <div id="playerShiftTokenSets" style="display: none;"></div>
+            </div>
+            <div id="submitButton">
+                <input type="submit" value="Start Game" class="newGameSubmit">
+            </div>    
+        </div>
+
+        <div class="gameBoard" style="display: none;">
+            <!-- Decks and discard piles -->
+            <div class="decks">
+                <div class="sandDeck">
+                    <!-- Placeholder for sand deck -->
+                    <img src="sand_deck_placeholder.png" alt="Sand Deck">
+                    <p>Sand Deck</p>
+                </div>
+                <div class="sandDiscard">
+                    <!-- Placeholder for sand discard pile -->
+                    <img src="discard_sand_placeholder.png" alt="Sand Discard Pile">
+                    <p>Sand Discard Pile</p>
+                </div>
+                <div class="bloodDeck">
+                    <!-- Placeholder for blood deck -->
+                    <img src="blood_deck_placeholder.png" alt="Blood Deck">
+                    <p>Blood Deck</p>
+                </div>
+                <div class="bloodDiscard">
+                    <!-- Placeholder for blood discard pile -->
+                    <img src="discard_blood_placeholder.png" alt="Blood Discard Pile">
+                    <p>Blood Discard Pile</p>
+                </div>
+            </div>
+
+            <!-- Draw buttons -->
+            <div class="buttons">
+                <button id="drawSandDeck">Draw from Sand Deck</button>
+                <!-- Container to display the drawn card -->
+                <div id="drawnSandCard"></div>
+
+                <!-- Placeholder for keep or discard buttons -->
+                <div id="keepOrDiscardSand" style="display:none;">
+                    <button id="keepSandCard">Keep New Card</button>
+                    <button id="discardSandCard">Discard New Card</button>
+                </div>
+
+                <button id="drawBloodDeck">Draw from Blood Deck</button>
+                <!-- Container to display the drawn card -->
+                <div id="drawnBloodCard"></div>
+
+                <!-- Placeholder for keep or discard buttons -->
+                <div id="keepOrDiscardBlood" style="display:none;">
+                    <button id="keepBloodCard">Keep New Card</button>
+                    <button id="discardBloodCard">Discard New Card</button>
+                </div>
+            </div>
+
+            <!-- Stand button -->
+            <button class="stand-button" id="standButton">Stand</button>
+
+            <!-- Player 1's hand -->
+            <div class="player-hand">
+                <h2>Player 1's Hand</h2>
+                <div id="player1Cards">
+                    <!-- Example cards from sand and blood deck -->
+                    <div class="card">Card 1: [2, "sand"]</div>
+                    <div class="card">Card 2: [4, "blood"]</div>
+                </div>
+
+                <div class="shift-tokens">
+                    <h3>Shift Tokens</h3>
+                    <div id="player1ShiftTokens">
+                        <!-- Example shift tokens -->
+                        <span class="shift-token">FREE_DRAW</span>
+                        <span class="shift-token">REFUND</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="module" src="sabacc.js"></script>
+    </body>
+</html>
