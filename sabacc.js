@@ -1,16 +1,6 @@
 import * as constants from './constants.js';
 
-let [starterSandDeck, starterBloodDeck] = generateDecks();
 
-let decks = {
-    sand: [],
-    blood: []
-};
-
-let discardPiles = {
-    sand: [],
-    blood: []
-};
 const players = [];
 let numPlayers;
 let startingChips;
@@ -68,32 +58,6 @@ document.querySelectorAll('input[name="shiftFormat"]').forEach((radio) => {
 });
 
 
-function generateDecks() {
-    let sandDeck = [];
-    let bloodDeck = [];
-    
-    for (let j = 0; j < 3; j++) {
-        for (let i = 1; i <= 6; i++) {
-            sandDeck.push(i);
-            bloodDeck.push(i);
-        }
-        sandDeck.push("imposter");
-        bloodDeck.push("imposter");
-    }
-    sandDeck.push("sylop");
-    bloodDeck.push("sylop");
-    
-    return [sandDeck, bloodDeck];
-}
-
-function shuffle(array) {
-    let currentIndex = array.length;
-    while (currentIndex > 0) {
-        let randomIndex = Math.floor(Math.random() * currentIndex--);
-        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]]
-    }
-}
-
 // TODO
 function takeTurn() {
     // OPTIONAL: play shift token
@@ -114,9 +78,9 @@ function initializeGame() {
 
     numPlayers = parseInt(numPlayersSelector.value);
     startingChips = document.getElementById('numChips').value;
-    
+
     selectedShiftFormat = document.querySelector('input[name="shiftFormat"]:checked').value;
-    shiftTokenValues = fetchShiftTokenValues(); 
+    shiftTokenValues = fetchShiftTokenValues();
 
     for (let i = 1; i <= numPlayers; i++) {
         let player = {
@@ -138,7 +102,7 @@ function displayGameBoard() {
     gameBoard.style.display = 'block';
 
     let player1Cards = document.querySelectorAll('.player-hand #player1Cards .card');
-    
+
     // TODO: fix display of cards and shift tokens
     player1Cards[0].textContent = players[0]['sandCard'];
     player1Cards[1].textContent = players[0]['bloodCard'];
@@ -190,7 +154,7 @@ function drawBloodDeck() {
 */
 
 function drawCard(deck) {
-    let newCard  = decks[`${deck}`].pop();
+    let newCard = decks[`${deck}`].pop();
     let capitalizedDeck = deck.charAt(0).toUpperCase() + deck.slice(1);
 
     // show drawn card
@@ -206,7 +170,7 @@ function drawCard(deck) {
     }
     // disable stand button
     document.getElementById('standButton').disabled = true;
-    
+
     handleKeepOrDiscard(newCard, deck, currentPlayerIndex);
 }
 
@@ -218,7 +182,7 @@ function handleKeepOrDiscard(newCard, deck, playerIndex) {
     discardButton = document.getElementById(`discard${capitalizedDeck}Card`);
 
     // When the player chooses to keep the new card
-    keepButton.addEventListener('click', function() {
+    keepButton.addEventListener('click', function () {
         // Discard the old sand card and keep the new one
         discardPiles[deck].push(players[playerIndex][`${deck}Card`]);
         console.log(discardPiles[deck]);
@@ -235,7 +199,7 @@ function handleKeepOrDiscard(newCard, deck, playerIndex) {
     });
 
     // When the player chooses to discard the new card
-    discardButton.addEventListener('click', function() {
+    discardButton.addEventListener('click', function () {
         // Keep the old sand card, discard the new one
         discardPiles[deck].push(newCard);
         console.log(`Player ${playerIndex + 1} discards new ${deck} card: ${newCard}`);
@@ -250,7 +214,7 @@ function resetAfterAction() {
     // Hide the "Keep" and "Discard" buttons
     document.getElementById('keepOrDiscardSand').style.display = 'none';
     document.getElementById('keepOrDiscardBlood').style.display = 'none';
-    
+
     // Clear the drawn card display
     document.getElementById('drawnSandCard').textContent = '';
     document.getElementById('drawnBloodCard').textContent = '';
@@ -302,7 +266,7 @@ function generateDropdownSets() {
     for (let i = 1; i <= numPlayers; i++) {
         const playerDiv = document.createElement('div');
         playerDiv.innerHTML = `<strong>Player ${i}</strong>`;
-        
+
         // For each shift token
         for (let j = 1; j <= numShiftTokens; j++) {
             const select = document.createElement('select');
@@ -315,7 +279,7 @@ function generateDropdownSets() {
                 option.textContent = tokenType;
                 select.appendChild(option);
             });
-            
+
             playerDiv.appendChild(document.createTextNode(`Shift Token ${j}: `));
             playerDiv.appendChild(select);
         }

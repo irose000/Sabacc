@@ -1,0 +1,14 @@
+{
+  "name": "sabacc",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "http-server": "^14.1.1",
+    "path": "^0.12.7",
+    "ws": "^8.18.0"
+  }
+}
