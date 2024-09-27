@@ -1,4 +1,7 @@
 module.exports = {
+    READY: true,
+    NOT_READY: false,
+
     MIN_PLAYERS: 2,
 
     STARTING_CHIPS: 8,
@@ -25,11 +28,10 @@ module.exports = {
     DRAW_COST: 1,
     MIN_DRAW_COST: 0,
 
-    // valid options are "playerOwned" or "random"
-    // "playerOwned": players bring owned shift tokens of their choice into the game
-    // "random": players are randomly assigned shift tokens at the beginning of the game
-    //SHIFT_TOKEN_FORMAT: "playerOwned",
-
+    READINESS: {
+        READY: true,
+        NOT_READY: false
+    },
 
     SETTINGS_VALIDATION_STATUS: {
         VALID: 0,

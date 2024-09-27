@@ -3,6 +3,7 @@ const http = require('http');
 const express = require('express');
 const constants = require('./constants.js');
 const path = require('path');
+const uuid = require('uuid');
 
 const app = express();
 const server = http.createServer(app);
@@ -58,7 +59,7 @@ function broadcast(data) {
 }
 
 function shuffle(deck) {
-    return deck.sort(() => Math.random() - 0.5);
+    return deck.toSorted(() => Math.random() - 0.5);
 }
 
 wss.on('connection', (ws) => {
@@ -91,9 +92,8 @@ wss.on('connection', (ws) => {
             let tempSettings = gameSettings;
 
             // un-ready all players
-            playerStates.forEach(player => {
-                player.ready = false;
-            });
+            playerStates = setPlayerReadiness(constants.READINESS.NOT_READY);
+
             broadcast({ action: 'updateReady', players: playerStates });
 
             // updated game settings with change
@@ -148,6 +148,12 @@ wss.on('connection', (ws) => {
         console.log(`Player '${username}' disconnected`);
     });
 });
+
+function setPlayerReadiness(isReady) {
+    if () {
+
+    }
+}
 
 function newGame() {
 
